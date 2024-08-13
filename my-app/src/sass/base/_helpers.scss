@@ -1,0 +1,19 @@
+@use "../abstracts" as *;
+
+.container {
+  padding-inline: 15px;
+  margin-inline: auto;
+  width: 1140px;
+  @include mq("xl") {
+    max-width: 970px;
+  }
+  @include mq("lg") {
+    max-width: 740px;
+  }
+  @include mq("md") {
+    width: 90%;
+  }
+  @include mq("sm") {
+    width: 100%;
+  }
+}

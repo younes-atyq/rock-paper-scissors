@@ -1,0 +1,36 @@
+@use "../abstracts" as *;
+
+#header {
+  background-color: var(--elements);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  padding-block: 25px;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span {
+      font-size: x-large;
+      font-weight: bold;
+    }
+    #theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-block: 5px;
+      font-weight: 600;
+      font-size: medium;
+      background-color: transparent;
+      color: var(--text);
+      border: none;
+      cursor: pointer;
+    }
+    @include mq("sm") {
+      span {
+        font-size: large;
+      }
+      #theme-toggle {
+        font-size: small;
+      }
+    }
+  }
+}

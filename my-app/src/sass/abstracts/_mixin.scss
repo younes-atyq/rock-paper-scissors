@@ -1,0 +1,105 @@
+@use "sass:map";
+@use "./variables" as *;
+
+$breakpoints: (
+  "sm": 575px,
+  "md": 767px,
+  "lg": 991px,
+  "xl": 1199px,
+);
+
+@mixin mq($width) {
+  @if map.has-key($breakpoints, $width) {
+    @media (max-width: map.get($breakpoints, $width)) {
+      @content;
+    }
+  } @else {
+    @media (max-width: $width) {
+      @content;
+    }
+  }
+}
+
+@mixin on-event($self: false) {
+  @if $self {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  } @else {
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  }
+}
+
+@mixin btn-border-drawing(
+  $color: $white,
+  $hover: black,
+  $width: 2px,
+  $vertical: top,
+  $horizontal: left,
+  $duration: 0.25s,
+  $font-color: $white
+) {
+  & {
+    position: relative;
+    box-shadow: inset 0 0 0 $width $color;
+    color: $font-color;
+    transition: color $duration calc($duration/3);
+    overflow: hidden;
+  }
+
+  &::before,
+  &::after {
+    border: 0 solid transparent;
+    box-sizing: border-box;
+    border-radius: 8px;
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    #{$vertical}: 0;
+    #{$horizontal}: 0;
+  }
+
+  &::before {
+    $h-side: if($horizontal == "left", "right", "left");
+
+    border-#{$vertical}-width: $width;
+    border-#{$h-side}-width: $width;
+  }
+
+  &::after {
+    $v-side: if($vertical == "top", "bottom", "top");
+
+    border-#{$v-side}-width: $width;
+    border-#{$horizontal}-width: $width;
+  }
+
+  &:hover {
+    color: $hover;
+
+    &::before,
+    &::after {
+      border-color: $hover;
+      transition: border-color 0s, width $duration, height $duration;
+      width: 100%;
+      height: 100%;
+    }
+
+    &::before {
+      transition-delay: 0s, 0s, $duration;
+    }
+
+    &::after {
+      transition-delay: 0s, $duration, 0s;
+    }
+  }
+}

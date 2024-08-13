@@ -1,0 +1,35 @@
+@use "../abstracts" as *;
+// Base
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  overflow: auto;
+}
+
+body {
+  font-family: $font-family;
+  background: $background;
+  min-height: 100vh;
+  min-height: 100dvh;
+  color: whitesmoke;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text);
+}
+ul {
+  list-style: none;
+}
+img {
+  user-select: none;
+}
+input {
+  color: var(--text);
+}
