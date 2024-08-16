@@ -1,0 +1,108 @@
+@use "../abstracts" as *;
+
+.rules-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: 50px;
+  @include mq("sm") {
+    justify-content: center;
+  }
+}
+#rules-btn {
+  padding: 0.6em 2.4em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1.5;
+  letter-spacing: 0.05rem;
+  font-weight: 600;
+  border-radius: 8px;
+  &:focus {
+    outline: 2px dotted $random-color;
+  }
+  @include btn-border-drawing($header-outline, $random-color, 2px, top, left);
+}
+#rules {
+  display: none;
+  grid-template-areas:
+    "title exit"
+    "rules rules";
+  row-gap: 3em;
+  padding: 2em;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $white;
+  border-radius: $radius;
+  z-index: 2;
+  @include mq("md") {
+    min-width: 30em;
+  }
+  @include mq("sm") {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translate(0, 0);
+    border-radius: 0;
+    grid-template-areas:
+      "title"
+      "rules"
+      "exit";
+  }
+  h2 {
+    font-size: 2em;
+    color: $dark-text;
+    grid-area: title;
+    @include mq("sm") {
+      font-size: 4em;
+      text-align: center;
+      align-self: center;
+    }
+  }
+  #close {
+    grid-area: exit;
+    background: none;
+    border: none;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    cursor: pointer;
+    @include mq("sm") {
+      margin-inline: auto;
+      align-self: start;
+      svg {
+        scale: 2;
+      }
+    }
+    @include on-event {
+      outline: none;
+      svg {
+        opacity: 1;
+      }
+    }
+    svg {
+      margin-right: 10px;
+      opacity: 0.25;
+      transition: opacity $delay;
+    }
+  }
+  img {
+    grid-area: rules;
+    width: 100%;
+    min-width: 20em;
+  }
+}
+.overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.5;
+  // z-index: -1;
+}

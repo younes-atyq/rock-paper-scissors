@@ -1,0 +1,38 @@
+@use "../abstracts" as *;
+
+.bonus {
+  grid-template-areas:
+    "scissors scissors"
+    "spock paper"
+    "lizard rock";
+  background: url("./images/bg-pentagon.svg") no-repeat center center / 21em;
+
+  .card {
+    &#scissors {
+      grid-area: scissors;
+      margin-inline: auto;
+      margin-bottom: -5%;
+    }
+
+    &#paper {
+      margin-left: auto;
+      margin-bottom: 3em;
+      grid-area: paper;
+      @include mq("sm") {
+        margin-bottom: 2em;
+      }
+    }
+    &#lizard {
+      margin-left: auto;
+      grid-area: lizard;
+    }
+    &#rock {
+      margin-right: auto;
+      grid-area: rock;
+    }
+
+    &#spock {
+      grid-area: spock;
+    }
+  }
+}

@@ -1,11 +1,14 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import GameContext from "../js/GameContext";
 
 export default function Rules() {
   const rules = useRef();
   const overlay = useRef();
+  const { game } = useContext(GameContext);
+
   const closeRules = () => {
-    rules.current.style.display = "none";
-    overlay.current.style.display = "none";
+    rules.current ? (rules.current.style.display = "none") : null;
+    overlay.current ? (overlay.current.style.display = "none") : null;
   };
   const openRules = () => {
     rules.current.style.display = "grid";
@@ -18,7 +21,7 @@ export default function Rules() {
     if (e.target.classList.contains("overlay")) closeRules();
   });
   return (
-    <>
+    <div className="rules-btn-wrapper">
       <div ref={rules} id="rules">
         <h2>RULES</h2>
         <button id="close" onClick={closeRules}>
@@ -29,12 +32,16 @@ export default function Rules() {
             />
           </svg>
         </button>
-        <img src="./images/image-rules-bonus.svg" alt="rules" />
+        {game.bonusMode ? (
+          <img src="./images/image-rules-bonus.svg" alt="rules" />
+        ) : (
+          <img src="./images/image-rules.svg" alt="rules" />
+        )}
       </div>
       <div ref={overlay} className="overlay"></div>
       <button title="Rules" id="rules-btn" onClick={openRules}>
         RULES
       </button>
-    </>
+    </div>
   );
 }

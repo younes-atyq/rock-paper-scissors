@@ -25,6 +25,18 @@ $header-outline: hsl(217, 16%, 45%);
 // Background
 $background: radial-gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
 
+// shortcuts
+$colors: (
+  1: $scissors-gradient-start,
+  2: $cyan-start,
+  3: $paper-gradient-start,
+  4: $lizard-gradient-start,
+  5: $rock-gradient-start,
+);
+
+// Random color
+$random-color: map-get($colors, round(random() * 5) + 1);
+
 // spacing
 $section-padding: 100px;
 

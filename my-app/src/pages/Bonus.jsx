@@ -1,13 +1,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import Card from "./components/Card";
-import allCards from "./js/allCards";
-import ScoreContext from "./js/ScoreContext";
+import HouseCard from "../components/HouseCard";
+import allCards from "../js/allCards";
+import GameContext from "../js/GameContext";
+import Card from "../components/Card";
 
-const originalCards = allCards.filter((card) => card.mode === "original");
-
-export default function Original() {
+export default function Bonus() {
   const cardsRef = useRef();
-  const { score } = useContext(ScoreContext);
+  const { game, setGame } = useContext(GameContext);
   const [gameStart, setGameStart] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [gameOver, setGameOver] = useState(false);
@@ -32,16 +31,17 @@ export default function Original() {
     setGameStart(false);
     setSelectedCard(null);
     setGameOver(false);
+    setGame({ ...game, state: null, userCard: null, botCard: null });
   };
 
   useEffect(() => {
-    if (!score.state) return;
+    if (!game.state) return;
     const cardsContainer = cardsRef.current;
     const cards = Array.from(cardsContainer.children);
 
     cards.forEach((card) => {
       if (card.id === selectedCard) {
-        score.state === "YOU WIN" ? card.classList.add("win") : null;
+        game.state === "YOU WIN" ? card.classList.add("win") : null;
         card.style.gridArea = "selected";
       }
     });
@@ -51,7 +51,7 @@ export default function Original() {
 
     setGameOver(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [score]);
+  }, [game]);
 
   useEffect(() => {
     const cards = Array.from(cardsRef.current.children);
@@ -72,7 +72,7 @@ export default function Original() {
         cardsContainer.style.gridTemplateAreas = `"${card.id} bot"`;
 
         cards.forEach((c) => {
-          if (c !== card) {
+          if (c.id !== card.id) {
             c.classList.add("hide");
           }
         });
@@ -81,23 +81,15 @@ export default function Original() {
   }, []);
 
   return (
-    <div ref={cardsRef} className="cards">
-      {originalCards.map((card) => (
-        <button
-          key={card.name}
-          className="card"
-          title={card.name}
-          id={card.name}
-          style={{ "--color": `${card.color}` }}
-        >
-          <span className="text">YOU PICKED</span>
-          <img src={card.img} alt={card.name} />
-        </button>
+    <div ref={cardsRef} className="cards bonus">
+      {allCards.map((card) => (
+        <Card key={card.name} {...card} />
       ))}
-      {gameStart ? <Card selectedCard={selectedCard} /> : null}
+
+      {gameStart ? <HouseCard selectedCard={selectedCard} /> : null}
       {gameOver ? (
         <div className="game-over" id="game-over">
-          <span>{score.state}</span>
+          <span>{game.state}</span>
           <button onClick={playAgain}>PLAY AGAIN</button>
         </div>
       ) : null}

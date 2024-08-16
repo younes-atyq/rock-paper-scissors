@@ -1,36 +1,86 @@
 @use "../abstracts" as *;
 
 #header {
-  background-color: var(--elements);
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  padding-block: 25px;
-  .container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid $header-outline;
+  border-radius: $radius;
+  padding: 1em 1.5em;
+  .card-names {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     span {
-      font-size: x-large;
-      font-weight: bold;
-    }
-    #theme-toggle {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-block: 5px;
+      font-size: 1.5em;
       font-weight: 600;
-      font-size: medium;
-      background-color: transparent;
-      color: var(--text);
-      border: none;
-      cursor: pointer;
+      line-height: 0.9;
     }
+  }
+  .mode {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    border: 2px solid $header-outline;
+    gap: 1px;
+    border-radius: $radius;
+    overflow: hidden;
     @include mq("sm") {
-      span {
-        font-size: large;
+      flex-direction: column;
+    }
+    a {
+      padding: 0.7em;
+      font-size: 1.5em;
+      font-weight: 600;
+      line-height: 0.9;
+      color: $random-color;
+      background-color: transparent;
+      cursor: pointer;
+      @include mq("sm") {
+        font-size: 1.2em;
+        text-align: center;
       }
-      #theme-toggle {
-        font-size: small;
+      @include on-event() {
+        background-color: $random-color;
+        color: $white;
       }
+      &.active {
+        background-color: $random-color;
+        color: $white;
+      }
+    }
+  }
+  .score {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $white;
+    gap: 0.1em;
+    padding: 1em 2.5em;
+    border-radius: $radius;
+    cursor: pointer;
+    @include mq("sm") {
+      padding: 0.8em 1.2em;
+    }
+    span {
+      color: $dark-text;
+      &#score-text {
+        font-size: 1em;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+      }
+      &#score {
+        font-size: 3em;
+        font-weight: 700;
+      }
+    }
+    .save {
+      position: absolute;
+      width: 1.5em;
+      bottom: 0.5em;
+      right: 0.5em;
     }
   }
 }

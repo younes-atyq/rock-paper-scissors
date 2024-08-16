@@ -1,0 +1,254 @@
+@use "../abstracts" as *;
+
+.cards {
+  --width: 180px;
+  gap: 0em 4em;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, calc(var(--width) * 1.5));
+  justify-content: center;
+  &.active {
+    --width: 300px;
+    margin-top: 10em;
+    background: none;
+    grid-template-columns: repeat(2, calc(var(--width) * 1.2));
+    @include mq("lg") {
+      --width: 250px;
+      margin-top: 5em;
+    }
+    @include mq("md") {
+      --width: 200px;
+      grid-template-columns: repeat(2, var(--width));
+    }
+    @include mq("sm") {
+      --width: 160px;
+      grid-template-columns: repeat(2, var(--width));
+    }
+  }
+  &.finish {
+    grid-template-columns: auto minmax(137px, 218px) auto;
+    grid-template-areas: "selected game-over bot";
+    @include mq(900px) {
+      grid-template-columns: repeat(2, var(--width));
+      grid-template-areas:
+        "selected bot"
+        "game-over game-over";
+      row-gap: 4em;
+      column-gap: 10em;
+    }
+    @include mq(600px) {
+      column-gap: 3em;
+    }
+    @include mq("sm") {
+      column-gap: 2em;
+    }
+  }
+  @include mq("md") {
+    --width: 160px;
+  }
+  @include mq("sm") {
+    --width: 110px;
+    column-gap: 1.5em;
+  }
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--width);
+    height: var(--width);
+    background-color: $white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: inset 0 5px 10px 0 rgba(0, 0, 0, 0.2),
+      0 5px 10px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: $delay;
+    color: var(--color);
+    border: calc(var(--width) / 9) solid var(--color);
+    @include on-event {
+      box-shadow: inset 0 5px 10px 0 rgba(0, 0, 0, 0.2),
+        0 5px 10px 0 currentColor;
+      outline: none;
+      img {
+        rotate: 360deg;
+        scale: 1.2;
+        transition: $delay;
+      }
+    }
+    &.hide {
+      opacity: 0;
+      display: none;
+    }
+    &.active {
+      cursor: default;
+      user-select: none;
+      pointer-events: none;
+      .text {
+        display: block;
+      }
+    }
+    &.win {
+      --outline-width: 5em;
+      --animation-duration: 2s;
+      $color: rgba(245, 245, 245, 0.055);
+      outline: 0 solid $color;
+      position: relative;
+      animation: win var(--animation-duration) ease-in-out infinite;
+      @include mq("lg") {
+        --outline-width: 4em;
+      }
+      @include mq("md") {
+        --outline-width: 3.5em;
+      }
+      @include mq("sm") {
+        --outline-width: 3em;
+      }
+      &::after,
+      &::before {
+        content: "";
+        position: absolute;
+        background-color: rgba(245, 245, 245, 0.055);
+        border-radius: 50%;
+        z-index: -1;
+      }
+      &::after {
+        --size: 70%;
+        animation: pseudo-win var(--animation-duration) infinite ease-out;
+      }
+      &::before {
+        --size: 100%;
+        animation: pseudo-win var(--animation-duration) infinite ease-out;
+      }
+    }
+    &.bot {
+      grid-area: bot;
+      margin-left: auto;
+      cursor: default;
+      user-select: none;
+      pointer-events: none;
+      .text {
+        display: block;
+      }
+    }
+
+    &#scissors {
+      grid-area: scissors;
+    }
+
+    &#paper {
+      grid-area: paper;
+    }
+    &#lizard {
+      grid-area: lizard;
+    }
+    &#rock {
+      grid-area: rock;
+    }
+
+    &#spock {
+      grid-area: spock;
+    }
+
+    &#scissors,
+    &#paper,
+    &#lizard,
+    &#rock,
+    &#spock {
+      &.active {
+        margin: 0;
+        margin-right: auto;
+      }
+    }
+  }
+
+  .text {
+    display: none;
+    position: absolute;
+    font-size: 1.4em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    top: -50%;
+    left: 50%;
+    width: max-content;
+    transform: translateX(-50%);
+    color: $white;
+    text-shadow: 0 0 5px $dark-text;
+    @include mq("sm") {
+      font-size: 1em;
+    }
+  }
+  img {
+    width: calc(var(--width) / 2.5);
+    transition: scale $delay;
+  }
+
+  #game-over {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    grid-area: game-over;
+    max-width: max-content;
+    margin-inline: auto;
+    span {
+      font-size: 3.5em;
+      width: max-content;
+      @include mq("xl") {
+        font-size: 3em;
+      }
+      @include mq("lg") {
+        font-size: 2.5em;
+      }
+      @include mq("md") {
+        font-size: 5em;
+      }
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding-block: 0.5em;
+      border-radius: 5px;
+      border: 2px solid $white;
+      background-color: $white;
+      color: $dark-text;
+      cursor: pointer;
+      transition: $delay;
+      @include on-event {
+        background-color: transparent;
+        color: $white;
+      }
+    }
+  }
+}
+@keyframes win {
+  0% {
+  }
+  20% {
+    outline-width: 0;
+  }
+  80% {
+    outline-color: rgba(245, 245, 245, 0.055);
+  }
+  100% {
+    outline-width: var(--outline-width);
+    outline-color: rgba(245, 245, 245, 0);
+  }
+}
+
+@keyframes pseudo-win {
+  0% {
+  }
+  20% {
+    width: 0;
+    height: 0;
+  }
+  80% {
+    background-color: rgba(245, 245, 245, 0.055);
+  }
+  100% {
+    width: calc(var(--size) * 2 + 100%);
+    height: calc(var(--size) * 2 + 100%);
+    background-color: transparent;
+  }
+}
