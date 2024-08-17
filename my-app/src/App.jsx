@@ -5,6 +5,7 @@ import Bonus from "./pages/Bonus";
 import GameContext from "./js/GameContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Original from "./pages/Original";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   const [game, setGame] = useState({
@@ -29,6 +30,7 @@ function App() {
             <Route path="/bonus" element={<Bonus />} />
             <Route path="/original" element={<Original />} />
             <Route path="/" element={<Original />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
           <Rules />
         </GameContext.Provider>
