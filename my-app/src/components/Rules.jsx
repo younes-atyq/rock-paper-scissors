@@ -1,5 +1,6 @@
 import { useContext, useRef } from "react";
 import GameContext from "../js/GameContext";
+import randomColor from "../js/randomColor";
 
 export default function Rules() {
   const rules = useRef();
@@ -39,7 +40,12 @@ export default function Rules() {
         )}
       </div>
       <div ref={overlay} className="overlay"></div>
-      <button title="Rules" id="rules-btn" onClick={openRules}>
+      <button
+        title="Rules"
+        id="rules-btn"
+        onClick={openRules}
+        style={{ "--random-color": randomColor }}
+      >
         RULES
       </button>
     </div>

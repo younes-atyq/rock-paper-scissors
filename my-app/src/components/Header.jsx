@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import GameContext from "../js/GameContext";
 import { Link, useNavigate } from "react-router-dom";
+import randomColor from "../js/randomColor";
 
 export default function Header() {
   const { game, setGame } = useContext(GameContext);
@@ -44,7 +45,7 @@ export default function Header() {
         <span>Spock</span>
       </div>
       {!game.start && (
-        <div className="mode">
+        <div className="mode" style={{ "--random-color": randomColor }}>
           <Link
             to="/"
             id="original"

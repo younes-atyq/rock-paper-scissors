@@ -34,9 +34,6 @@ $colors: (
   5: $rock-gradient-start,
 );
 
-// Random color
-$random-color: map-get($colors, round(random() * 5) + 1);
-
 // spacing
 $section-padding: 100px;
 

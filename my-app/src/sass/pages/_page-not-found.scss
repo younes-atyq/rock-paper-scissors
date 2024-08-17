@@ -22,7 +22,7 @@
   .link-to-home {
     text-decoration: underline;
     @include on-event() {
-      color: $random-color;
+      color: $rock-gradient-end;
     }
   }
 }

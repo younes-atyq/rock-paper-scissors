@@ -19,9 +19,15 @@
   font-weight: 600;
   border-radius: 8px;
   &:focus {
-    outline: 2px dotted $random-color;
+    outline: 2px dotted var(--random-color);
   }
-  @include btn-border-drawing($header-outline, $random-color, 2px, top, left);
+  @include btn-border-drawing(
+    $header-outline,
+    var(--random-color),
+    2px,
+    top,
+    left
+  );
 }
 #rules {
   display: none;
@@ -104,5 +110,4 @@
   height: 100%;
   background-color: black;
   opacity: 0.5;
-  // z-index: -1;
 }
