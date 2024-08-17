@@ -8,7 +8,7 @@
   padding: 0;
 }
 html {
-  overflow: auto;
+  overflow-x: auto;
 }
 
 body {
@@ -17,7 +17,7 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   color: whitesmoke;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 a {
