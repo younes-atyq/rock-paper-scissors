@@ -36,7 +36,7 @@ export default function Header() {
 
   return (
     <header id="header">
-      <div className="card-names">
+      <div className="card-names" title="logo">
         <span>Rock</span>
         <span>Paper</span>
         <span>Scissors</span>
@@ -50,6 +50,7 @@ export default function Header() {
             id="original"
             className={game.bonusMode ? "" : "active"}
             onClick={handleClick}
+            title="Original mode"
           >
             ORIGINAL
           </Link>
@@ -58,12 +59,14 @@ export default function Header() {
             id="bonus"
             className={game.bonusMode ? "active" : ""}
             onClick={handleClick}
+            title="Bonus mode"
           >
             BONUS
           </Link>
         </div>
       )}
       <div
+        tabIndex={0}
         className="score"
         onClick={handleSave}
         title="save/discard your score"
