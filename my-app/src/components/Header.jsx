@@ -7,6 +7,7 @@ export default function Header() {
   const navigate = useNavigate();
   const handleClick = (e) => {
     e.preventDefault();
+    if (e.target.classList.contains("active")) return;
     setGame({
       ...game,
       state: null,
@@ -62,7 +63,11 @@ export default function Header() {
           </Link>
         </div>
       )}
-      <div className="score" onClick={handleSave}>
+      <div
+        className="score"
+        onClick={handleSave}
+        title="save/discard your score"
+      >
         <span id="score-text">SCORE</span>
         <span id="score">{game.score}</span>
         {!game.start &&
